@@ -1,5 +1,7 @@
 var input = document.getElementById("input");
 
+var axes = {}; 
+
 var functions = [
   function fun1(x) { return Math.sin(x); }, 
   function fun2(x) { return Math.cos(3 * x); }
@@ -17,15 +19,22 @@ function addFunction() {
   }
 }
 
+function updateScale() {
+  var ctx = document.getElementById("canvas").getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  var viewportScale = document.getElementById("scale").value;
+  axes.scale = viewportScale;
+  draw();
+}
+
 function draw() {
   var canvas = document.getElementById("canvas");
   if (null == canvas || !canvas.getContext) return;
 
-  var axes = {}, 
-  ctx = canvas.getContext("2d");
+  var ctx = canvas.getContext("2d");
+  axes.scale = document.getElementById("scale").value;
   axes.x0 = .5 + .5 * canvas.width;  // x0 pixels from left to x=0
   axes.y0 = .5 + .5 * canvas.height; // y0 pixels from top to y=0
-  axes.scale = 90;                 // 40 pixels from x=0 to x=1
   axes.doNegativeX = true;
 
   showAxes(ctx, axes);
@@ -51,12 +60,13 @@ function plot (ctx, axes, func, color, thickness) {
   for (var i = iMin; i <= iMax; i++) {
     xx = dx * i; 
     yy = scale * func(xx / scale);
+
     if (i == iMin) {
       ctx.moveTo(x0 + xx, y0 - yy);
     }
     else {
       ctx.lineTo(x0 + xx, y0 - yy);
-    }         
+    }           
   }
   ctx.stroke();
 }
