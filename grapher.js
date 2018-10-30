@@ -1,32 +1,29 @@
-var input = document.getElementById("input");
-
 var axes = {};
-
-var t = 0;
+var time = 0;
+var scope = {
+  x: 0,
+  t: 0
+}
+var tree;
+var expr;
 
 var functions = [
-  function fun1(x) { return Math.sin(x / 2); }, 
-  function fun2(x) { return Math.cos(3 * x + t); }
+  function fun1(x) { return Math.cos(x + time); }, 
 ];
 
 //60 Frames per second
 var interval = setInterval(timedInterval, 16.7);
-
 function timedInterval () {
-  t += 0.05;
+  time += 0.05;
   draw();
 }
 
+function setExpr(newExpr){
+  expr = newExpr;
+}
+
 function addFunction() {
-  /*input = document.getElementById("input");
-  if(input.value != "")  
-  {
-    var div = document.createElement("div");
-    div.style = "padding-left: 16px; color: azure; display: inline; font-family: Arial";
-    var t = document.createTextNode(input.value);
-    div.appendChild(t);
-    document.body.appendChild(div);
-  }*/
+  setExpr(document.getElementById("input").value);
 }
 
 function updateScale() {
@@ -49,14 +46,14 @@ function draw() {
   axes.y0 = .5 + .5 * canvas.height; // y0 pixels from top to y=0
 
   showAxes(ctx, axes);
-  plot(ctx, axes, functions[0], "rgb(139, 233, 253)", 2); 
-  plot(ctx, axes, functions[1], "rgb(241, 121, 198)", 2);
+  plot(ctx, axes, "rgb(139, 233, 253)", 2); 
+  //plot(ctx, axes, functions[1], "rgb(241, 121, 198)", 2);
 }
 
-function plot (ctx, axes, func, color, thickness) {
+function plot (ctx, axes, color, thickness) {
   var xx, //The current 'x' value that is being plotted
   yy, //The current 'y' value that is being plotted
-  dx = 3, //The distance 'x' between each point that is plotted
+  dx = 2, //The distance 'x' between each point that is plotted
   x0 = axes.x0, //The 'x' value of the origin
   y0 = axes.y0, //The 'y' value of the origin
   scale = axes.scale; //The scale of the viewport
@@ -72,7 +69,7 @@ function plot (ctx, axes, func, color, thickness) {
   //Plotting and evaluating the function at each point x
   for (var i = iMin; i <= iMax; i++) {
     xx = dx * i;
-    yy = scale * func(xx / scale);
+    yy = scale * evaluateMathExpr(xx / scale);
 
     if (i == iMin) {
       ctx.moveTo(x0 + xx, y0 - yy);
@@ -82,6 +79,16 @@ function plot (ctx, axes, func, color, thickness) {
     }
   }
   ctx.stroke();
+}
+
+function evaluateMathExpr(mathX) {
+  // Set values on the scope visible inside the math expression.
+  scope.x = mathX;
+  scope.t = time;
+
+  // Evaluate the previously parsed math expression with the
+  // new values for 'x' and 't' and return it.
+  return math.eval(expr, scope);
 }
 
 function showAxes(ctx, axes) {
