@@ -6,6 +6,7 @@ var scope = {
 }
 var tree;
 var expr;
+var color = "rgb(139, 233, 253)";
 
 var functions = [
   function fun1(x) { return Math.cos(x + time); }, 
@@ -16,6 +17,10 @@ var interval = setInterval(timedInterval, 16.7);
 function timedInterval () {
   time += 0.05;
   draw();
+}
+
+function updateColor() {
+  color = document.getElementById("colorPicker").value;
 }
 
 function setExpr(newExpr){
@@ -46,7 +51,7 @@ function draw() {
   axes.y0 = .5 + .5 * canvas.height; // y0 pixels from top to y=0
 
   showAxes(ctx, axes);
-  plot(ctx, axes, "rgb(139, 233, 253)", 2); 
+  plot(ctx, axes, color, 2); 
   //plot(ctx, axes, functions[1], "rgb(241, 121, 198)", 2);
 }
 

@@ -25,14 +25,17 @@
         <input class="input" id="input" size="25">
     </div>
 
+    <!-- Button to add function to the function plot queue-->
+    <button onclick="addFunction()" class="button">Update</button>
+
     <!-- This text field will contain the scale of the viewport -->
     <div class="scaleDiv">
       <p class="default" style="display:inline">Scale: </p>
       <input id="scale" class="input" value="100" maxlength="5" size="4" style="font-size: 20px" onkeyup="updateScale()">
     </div>
 
-    <!-- Button to add function to the function plot queue-->
-    <button onclick="addFunction()" class="button">Update</button>
+    <!-- This text field will contain the scale of the viewport -->
+    <input type="color" id="colorPicker" onchange="updateColor()" value="#33ccff" style="width:3.35%; position: absolute; top: 12%; right: 1.25%">
       
     <!-- The math expression will be plotted on this Canvas. -->
     <center><canvas id="canvas" style="display: inline-block;"></canvas></center>
