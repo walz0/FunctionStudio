@@ -4,7 +4,7 @@
   <head>
     <meta charset=utf-8 />
     
-    <title>Graphing Calculator</title>
+    <title>Function Studio</title>
     
     <!-- Load dependencies. -->
     <link rel="stylesheet" href="style.css">
@@ -22,7 +22,7 @@
 
     <!-- This text field will contain the math expression to plot. -->
     <div class="inputDiv">
-        <input class="input" id="input" size="25">
+        <input class="input" id="input" onkeyup="addFunction()" size="25">
     </div>
 
     <!-- Button to add function to the function plot queue-->

@@ -1,36 +1,37 @@
-var axes = {};
-var time = 0;
-var scope = {
+//Global Variables
+var axes = {}; //X and Y axes
+var time = 0; //Time delta
+var scope = { //Scope of variables within functions
   x: 0,
   t: 0
 }
 var tree;
-var expr;
-var color = "rgb(139, 233, 253)";
+var expr; //Default Expression
+var color = "rgb(139, 233, 253)"; //Default color
 
-var functions = [
-  function fun1(x) { return Math.cos(x + time); }, 
-];
-
-//60 Frames per second
+//Calling the timedInterval function 60 frames per second
 var interval = setInterval(timedInterval, 16.7);
 function timedInterval () {
   time += 0.05;
   draw();
 }
 
+//Update the color of the curve
 function updateColor() {
   color = document.getElementById("colorPicker").value;
 }
 
+//Set an expression
 function setExpr(newExpr){
   expr = newExpr;
 }
 
+//Update the current expression
 function addFunction() {
   setExpr(document.getElementById("input").value);
 }
 
+//Update the current scale of the viewport
 function updateScale() {
   var ctx = document.getElementById("canvas").getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -51,7 +52,7 @@ function draw() {
   axes.y0 = .5 + .5 * canvas.height; // y0 pixels from top to y=0
 
   showAxes(ctx, axes);
-  plot(ctx, axes, color, 2); 
+  plot(ctx, axes, color, 2);
   //plot(ctx, axes, functions[1], "rgb(241, 121, 198)", 2);
 }
 
