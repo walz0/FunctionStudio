@@ -8,7 +8,7 @@ var scope = { //Scope of variables within functions
 var tree;
 var expr; //Default Expression
 var color = "rgb(139, 233, 253)"; //Default color
-var levelOfDetail = 5;
+var levelOfDetail = 7;
 
 var canvas = document.getElementById("canvas");
 
@@ -71,7 +71,14 @@ function draw() {
     var m = evaluateMathExpr(dydx, xValue);
     document.getElementById("m").value = m;
     var pointSlope = (-xValue * m) + yValue;
-    var tangentLine = m + "x" + "+" + pointSlope;
+    if(pointSlope < 0){
+      var tangentLine = m + "x" + pointSlope;
+    }
+    else
+    {
+      var tangentLine = m + "x" + "+" + pointSlope;
+    }
+    
     document.getElementById("tanLine").value = tangentLine;
     
     plot(ctx, axes, tangentLine, "rgb(241, 121, 198)", 2); //Tangent line to curve at point x

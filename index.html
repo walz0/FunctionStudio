@@ -8,9 +8,9 @@
     
     <!-- Load dependencies. -->
     <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/mathjs/dist/math.min.js"></script>
     <script src="grapher.js"></script>
-
+    <script src="math.js"></script>
+    
   </head>
   <body onload="draw()">
   <!-- Top Navigation Bar-->
@@ -19,6 +19,8 @@
       <a href="#news">Animate</a>
       <a href="#about">About</a>
     </div>
+
+    <img src="fx.png">
 
     <!-- This text field will contain the math expression to plot. -->
     <div class="inputDiv">
@@ -47,17 +49,17 @@
     <div id="derivativeInfo">
       <div class="derivativeFunction">
         <p class="default" style="display:inline">df(x)/dx: </p>
-        <input id="derivative" class="input" value="0" maxlength="15" size="6" style="font-size: 20px" readonly>
+        <input id="derivative" class="readonly" value="0" maxlength="15" size="6" style="font-size: 20px" readonly>
       </div>
   
       <div class="m">
         <p class="default" style="display:inline">m: </p>
-        <input id="m" class="input" value="0" maxlength="15" size="6" style="font-size: 20px" readonly>
+        <input id="m" class="readonly" value="0" maxlength="15" size="6" style="font-size: 20px" readonly>
       </div>
   
       <div class="tanLine">
         <p class="default" style="display:inline">y =  </p>
-        <input id="tanLine" class="input" value="0" maxlength="15" size="6" style="font-size: 20px" readonly>
+        <input id="tanLine" class="readonly" value="0" maxlength="15" size="6" style="font-size: 20px" readonly>
       </div>
     </div>
     

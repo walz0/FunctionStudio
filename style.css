@@ -20,6 +20,13 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
   }
 
+  .readonly {
+    color: white;
+    font-size: 25px; 
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: rgb(40, 42, 54);
+  }
+
   .inputDiv {
     position: absolute; 
     z-index: 1; 
@@ -39,7 +46,7 @@
   .xDiv {
     position: absolute; 
     z-index: 1; 
-    right: 105px; 
+    right: 120px; 
     top: 150px; 
   }
 
