@@ -36,6 +36,41 @@
     top: 74px; 
   }
 
+  .xDiv {
+    position: absolute; 
+    z-index: 1; 
+    right: 105px; 
+    top: 150px; 
+  }
+
+  .yDiv {
+    position: absolute; 
+    z-index: 1; 
+    right: 25px; 
+    top: 150px; 
+  }
+
+  .derivativeFunction {
+    position: absolute; 
+    z-index: 1; 
+    right: 25px; 
+    top: 195px; 
+  }
+
+  .m {
+    position: absolute; 
+    z-index: 1; 
+    right: 25px; 
+    top: 240px; 
+  }
+
+  .tanLine {
+    position: absolute; 
+    z-index: 1; 
+    right: 25px; 
+    top: 285px; 
+  }
+
   .button {
     position: absolute; 
     z-index: 1; 

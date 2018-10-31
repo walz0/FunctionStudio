@@ -8,6 +8,9 @@ var scope = { //Scope of variables within functions
 var tree;
 var expr; //Default Expression
 var color = "rgb(139, 233, 253)"; //Default color
+var levelOfDetail = 5;
+
+var canvas = document.getElementById("canvas");
 
 //Calling the timedInterval function 60 frames per second
 var interval = setInterval(timedInterval, 16.7);
@@ -32,34 +35,54 @@ function addFunction() {
 }
 
 //Update the current scale of the viewport
-function updateScale() {
+function updateScale(increment) {
   var ctx = document.getElementById("canvas").getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  var viewportScale = document.getElementById("scale").value;
-  axes.scale = viewportScale;
+  //var viewportScale = document.getElementById("scale").value;
+  axes.scale += increment;
   draw();
 }
 
 function draw() {
   var canvas = document.getElementById("canvas");
-  canvas.width = screen.width - 100;
-  canvas.height = screen.height - 250;
+  canvas.width = screen.width;
+  canvas.height = screen.height * .819;
   if (null == canvas || !canvas.getContext) return;
 
   var ctx = canvas.getContext("2d");
   axes.scale = document.getElementById("scale").value;
-  axes.x0 = .5 + .5 * canvas.width;  // x0 pixels from left to x=0
-  axes.y0 = .5 + .5 * canvas.height; // y0 pixels from top to y=0
+  axes.x0 = 0.5 + .5 * canvas.width;  // x0 pixels from left to x=0
+  axes.y0 = 0.5 + .5 * canvas.height; // y0 pixels from top to y=0
 
   showAxes(ctx, axes);
-  plot(ctx, axes, color, 2);
-  //plot(ctx, axes, functions[1], "rgb(241, 121, 198)", 2);
+  plot(ctx, axes, expr, color, 2);
+
+  var derivative = true;
+  
+  if(derivative)
+  {
+    var xValue = math.eval(document.getElementById("xText").value);
+    var yValue = evaluateMathExpr(expr, document.getElementById("xText").value);
+    document.getElementById("yText").value = yValue;
+    
+    var dydx = math.derivative(expr, "x").toString();
+    document.getElementById("derivative").value = dydx;
+
+    var m = evaluateMathExpr(dydx, xValue);
+    document.getElementById("m").value = m;
+    var pointSlope = (-xValue * m) + yValue;
+    var tangentLine = m + "x" + "+" + pointSlope;
+    document.getElementById("tanLine").value = tangentLine;
+    
+    plot(ctx, axes, tangentLine, "rgb(241, 121, 198)", 2); //Tangent line to curve at point x
+    //plot(ctx, axes, math.derivative(expr, "x").toString(), "rgb(241, 121, 198)", 2); //General Derivative Function
+  }
 }
 
-function plot (ctx, axes, color, thickness) {
+function plot (ctx, axes, expr, color, thickness) {
   var xx, //The current 'x' value that is being plotted
   yy, //The current 'y' value that is being plotted
-  dx = 2, //The distance 'x' between each point that is plotted
+  dx = levelOfDetail, //The distance 'x' between each point that is plotted
   x0 = axes.x0, //The 'x' value of the origin
   y0 = axes.y0, //The 'y' value of the origin
   scale = axes.scale; //The scale of the viewport
@@ -75,7 +98,7 @@ function plot (ctx, axes, color, thickness) {
   //Plotting and evaluating the function at each point x
   for (var i = iMin; i <= iMax; i++) {
     xx = dx * i;
-    yy = scale * evaluateMathExpr(xx / scale);
+    yy = scale * evaluateMathExpr(expr, xx / scale);
 
     if (i == iMin) {
       ctx.moveTo(x0 + xx, y0 - yy);
@@ -87,7 +110,7 @@ function plot (ctx, axes, color, thickness) {
   ctx.stroke();
 }
 
-function evaluateMathExpr(mathX) {
+function evaluateMathExpr(expr, mathX) {
   // Set values on the scope visible inside the math expression.
   scope.x = mathX;
   scope.t = time;

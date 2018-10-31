@@ -25,8 +25,8 @@
         <input class="input" id="input" onkeyup="addFunction()" size="25">
     </div>
 
-    <!-- Button to add function to the function plot queue-->
-    <button onclick="addFunction()" class="button">Update</button>
+    <!-- Button to add function to the function plot queue
+    <button onclick="addFunction()" class="button">Update</button>-->
 
     <!-- This text field will contain the scale of the viewport -->
     <div class="scaleDiv">
@@ -34,8 +34,35 @@
       <input id="scale" class="input" value="100" maxlength="5" size="4" style="font-size: 20px" onkeyup="updateScale()">
     </div>
 
+    <div class="xDiv">
+      <p class="default" style="display:inline">X: </p>
+      <input id="xText" class="input" value="0" maxlength="15" size="2" style="font-size: 20px" onkeyup="draw()">
+    </div>
+
+    <div class="yDiv">
+      <p class="default" style="display:inline">Y: </p>
+      <input id="yText" class="input" value="0" maxlength="15" size="2" style="font-size: 20px" onkeyup="draw()">
+    </div>
+
+    <div id="derivativeInfo">
+      <div class="derivativeFunction">
+        <p class="default" style="display:inline">df(x)/dx: </p>
+        <input id="derivative" class="input" value="0" maxlength="15" size="6" style="font-size: 20px" readonly>
+      </div>
+  
+      <div class="m">
+        <p class="default" style="display:inline">m: </p>
+        <input id="m" class="input" value="0" maxlength="15" size="6" style="font-size: 20px" readonly>
+      </div>
+  
+      <div class="tanLine">
+        <p class="default" style="display:inline">y =  </p>
+        <input id="tanLine" class="input" value="0" maxlength="15" size="6" style="font-size: 20px" readonly>
+      </div>
+    </div>
+    
     <!-- This text field will contain the scale of the viewport -->
-    <input type="color" id="colorPicker" onchange="updateColor()" value="#33ccff" style="width:3.35%; position: absolute; top: 12%; right: 1.25%">
+    <input type="color" id="colorPicker" onchange="updateColor()" value="#33ccff" style="width:3.35%; position: absolute; top: 110px; right: 25px">
       
     <!-- The math expression will be plotted on this Canvas. -->
     <center><canvas id="canvas" style="display: inline-block;"></canvas></center>
