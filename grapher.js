@@ -119,6 +119,12 @@ function draw() {
   }
 }
 
+function pointSlope(m, x, y)
+{
+  var result = (-x * m) + y;
+  return result;
+}
+
 function plotVector(ctx, axes, expr, color, thickness)
 {
   var vector = {
@@ -126,6 +132,7 @@ function plotVector(ctx, axes, expr, color, thickness)
     y: 0
   };
 
+  //Parsing Input and Evaluting Components
   vector.x = math.eval(
     expr.substring(expr.indexOf("[") + 1, expr.indexOf(","))
   );
@@ -139,10 +146,40 @@ function plotVector(ctx, axes, expr, color, thickness)
 
   //Plotting the Vector
   ctx.moveTo(axes.x0, axes.y0); //Move to starting point
+
+  //Drawing line to head of Vector
   ctx.lineTo(
-    ctx.canvas.width / 2 + (axes.x0/2 + vector.x) * axes.scale, 
-    ctx.canvas.height / 2 + (axes.y0/2 + vector.y) * -axes.scale
-  ); //Drawing line to head of Vector
+    axes.x0 + vector.x * axes.scale, 
+    axes.y0 + vector.y * -axes.scale
+  ); 
+
+  //Creating a 'slope' for the Vector
+  var m = vector.y / vector.x; 
+  //Moving to a point 0.2 units down the hypotenuse
+  var headBaseX = vector.x - 0.2;
+  var headBaseY = m * headBaseX;
+  var offset = 0.05;
+
+  var mPerp = -1 * vector.x / vector.y;
+  
+  //Drawing Arrow head
+  ctx.moveTo(
+    axes.x0 + (headBaseX - offset) * axes.scale, 
+    axes.y0 + ((mPerp * (headBaseX - offset)) + pointSlope(mPerp, headBaseX, headBaseY)) * -axes.scale
+  ); //Left
+  ctx.lineTo(
+    axes.x0 + vector.x * axes.scale, 
+    axes.y0 + vector.y * -axes.scale
+  ); 
+
+  ctx.moveTo(
+    axes.x0 + (headBaseX + 0.1) * axes.scale, 
+    axes.y0 + ((mPerp * (headBaseX + offset)) + pointSlope(mPerp, headBaseX, headBaseY)) * -axes.scale
+  ); //Right
+  ctx.lineTo(
+    axes.x0 + vector.x * axes.scale, 
+    axes.y0 + vector.y * -axes.scale
+  ); 
 
   ctx.stroke();
 }
