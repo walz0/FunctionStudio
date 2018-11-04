@@ -8,16 +8,29 @@
     
     <!-- Load dependencies. -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="grapher.js"></script>
     <script src="math.js"></script>
     
   </head>
   <body onload="draw()">
-  <!-- Top Navigation Bar-->
-    <div class="topnav">
-      <a class="active" href="#home">Graph</a>
-      <a href="#news">Animate</a>
-      <a href="#about">About</a>
+    <!-- Side Bar -->
+    <div class="icon-bar" style="position: absolute; z-index: 3;">
+      <a href=""><i class="fa fa-home"></i></a> 
+      <a href=""><i class="fa fa-search"></i></a> 
+      <a href=""><i class="fa fa-envelope"></i></a> 
+      <a href=""><i class="fa fa-globe"></i></a>
+      <a href=""><i class="fa fa-trash"></i></a> 
+    </div>
+
+    <!-- Clear Canvas -->
+    <div class="icon-bar" style="position: absolute; right: 0px; top: 0px; z-index: 3; height: 5%; background-color: #ff800000">
+      <a href=""><i class="fa fa-refresh"></i></a>
+    </div>
+
+    <!-- Settings -->
+    <div class="icon-bar" style="position: absolute; right: 0px; bottom: 0px; z-index: 3; height: 8%; background-color: #ff800000">
+      <a><i class="fa fa-gear"></i></a>
     </div>
 
     <!-- <img src="fx.png"> -->
@@ -36,11 +49,13 @@
       <input id="scale" class="input" value="100" maxlength="5" size="4" style="font-size: 20px" onkeyup="updateScale()">
     </div>
 
+    <!-- X Value Input Box -->
     <div class="xDiv">
       <p class="default" style="display:inline">X: </p>
       <input id="xText" class="input" value="0" maxlength="15" size="2" style="font-size: 20px" onkeyup="draw()">
     </div>
 
+    <!-- Y Value Input Box -->
     <div class="yDiv">
       <p class="default" style="display:inline">Y: </p>
       <input id="yText" class="input" value="0" maxlength="15" size="2" style="font-size: 20px" onkeyup="draw()">
@@ -51,8 +66,8 @@
     </div>-->
     
     <div id="derivativeInfo">
+      <img class="default" style="width: 65px; position:absolute; right: 120px; top: 225px;" src="dydx.png">
       <div class="derivativeFunction">
-        <p class="default" style="display:inline">df(x)/dx: </p>
         <input id="derivative" class="readonly" value="0" maxlength="15" size="6" style="font-size: 20px" readonly>
       </div>
   
@@ -71,6 +86,6 @@
     <input type="color" id="colorPicker" onchange="updateColor()" value="#33ccff" style="width:3.35%; position: absolute; top: 110px; right: 25px">
       
     <!-- The math expression will be plotted on this Canvas. -->
-    <center><canvas id="canvas" style="display: inline-block;" onmousedown="startPan(event)" onmousemove="mouseDelta(event)" onmouseup="endPan(event)"></canvas></center>
+    <center><canvas id="canvas" style="position:absolute; left: 0px; top: 0px" onmousedown="startPan(event)" onmousemove="mouseDelta(event)" onmouseup="endPan(event)"></canvas></center>
   </body>
 </html>
