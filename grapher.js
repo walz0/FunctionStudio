@@ -105,7 +105,7 @@ function draw() {
 
     var m = evaluateMathExpr(dydx, xValue);
     document.getElementById("m").value = m;
-    var pointSlope = (-xValue * m) + yValue;
+    var pointSlope = (-xValue * m) + yValue; //y-intercept
     if(pointSlope < 0){
       var tangentLine = m + "x" + pointSlope;
     }
@@ -116,8 +116,8 @@ function draw() {
     
     document.getElementById("tanLine").value = tangentLine;
     
-    plot(ctx, axes, dydx, "rgb(241, 121, 198)", 2); //Tangent line to curve at point x
-    plot(ctx, axes, tangentLine, "#FF8000", 2);
+    plot(ctx, axes, dydx, "rgb(241, 121, 198)", 2); //Derivative of the expression
+    plot(ctx, axes, tangentLine, "#FF8000", 2); //Tangent line to curve at point x
     //plotCurve(ctx, axes, math.derivative(expr, "x").toString(), "rgb(241, 121, 198)", 2); //General Derivative Function
   }
 }
